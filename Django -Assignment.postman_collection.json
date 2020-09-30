@@ -1,0 +1,690 @@
+{
+	"info": {
+		"_postman_id": "509ab46d-ffce-41bc-87dc-aafbb493ffeb",
+		"name": "Django -Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "newuser",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "user@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/auth/login/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login",
+						""
+					]
+				},
+				"description": "Use to login to the application"
+			},
+			"response": [
+				{
+					"name": "Login - failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "doe@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "abcd@1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/auth/login/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"message\": \"You do not have an account please signup to continue.\",\n    \"error\": \"error\",\n    \"status\": 401\n}"
+				},
+				{
+					"name": "Login - success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "johndoe@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "abcd@1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/auth/login/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Login successfull.\",\n    \"body\": {\n        \"user\": {\n            \"email\": \"johndoe@gmail.com\",\n            \"username\": \"johndoe\",\n            \"status\": \"Activated\",\n            \"signup_time\": \"2020-08-25T06:37:13.925536Z\"\n        },\n        \"userID\": 11,\n        \"role\": \"Moderater\",\n        \"full_name\": \"Mr. John Doe\",\n        \"gender\": \"MALE\",\n        \"token\": \"3de569c72e411e9e83e005f8e81d3c4b81fea4e3\"\n    },\n    \"status\": 200\n}"
+				}
+			]
+		},
+		{
+			"name": "Post Question - only for moderator",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Token 0b824a553394ecf5fe340896bc6470190784148d"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "question",
+							"value": "Which design pattern django follows?",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/question/create/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"question",
+						"create",
+						""
+					]
+				},
+				"description": "API to post Questionss"
+			},
+			"response": [
+				{
+					"name": "Post Question - success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 0b824a553394ecf5fe340896bc6470190784148d",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "questions",
+									"value": "I want to hire a django developer, please suggest",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/question/create/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"question",
+								"create",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\r\n    \"message\": \"question created.\",\r\n    \"body\": [],\r\n    \"status\": 200\r\n}"
+				},
+				{
+					"name": "Post Question - failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 0b824a553394ecf5fe340896bc6470190784148d",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "questions",
+									"value": "I want to hire a django developer, please suggestI want to hire a django developer, please suggestI want to hire a django developer, please suggestI want to hire a django developer, please suggestI want to hire a django developer, please suggest",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/question/create/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"question",
+								"create",
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "    {\n        \"message\": \"Failed\",\n        \"error\": \"Character limit exceeded, Status can have a max_length of 140 chars.\",\n        \"status\": 400\n    }"
+				},
+				{
+					"name": "Post Question - UnAuthorized(Only for Moderator)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 0b824a553394ecf5fe340896bc6470190784148d",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "questions",
+									"value": "I want to hire a django developer, please suggest",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/question/create/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"question",
+								"create",
+								""
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Only Moderator can post questions\",\n    \"error\": \"error\",\n    \"status\": 401\n}"
+				}
+			]
+		},
+		{
+			"name": "Post Answer - only for user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Token 0b824a553394ecf5fe340896bc6470190784148d"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "questionID",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "answer",
+							"value": "MVT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/answer/create/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"answer",
+						"create",
+						""
+					]
+				},
+				"description": "API to post Questionss"
+			},
+			"response": [
+				{
+					"name": "Post Answer - success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 0b824a553394ecf5fe340896bc6470190784148d",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "questionID",
+									"value": "14",
+									"type": "text"
+								},
+								{
+									"key": "answer",
+									"value": "You can hire me, i am talented guy :)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/question/create/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"question",
+								"create",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\r\n    \"message\": \"answer created.\",\r\n    \"body\": [],\r\n    \"status\": 200\r\n}"
+				},
+				{
+					"name": "Post Answer - failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 0b824a553394ecf5fe340896bc6470190784148d",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "questionsID",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "answer",
+									"value": "You can hire me, i am talented guy :)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/question/create/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"question",
+								"create",
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Failed\",\n    \"error\": \"Question does not exist\",\n    \"status\": 400\n}"
+				}
+			]
+		},
+		{
+			"name": "getQuestions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token 0b824a553394ecf5fe340896bc6470190784148d",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/questions",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"questions"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 0b824a553394ecf5fe340896bc6470190784148d",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/api/questions/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"questions",
+								""
+							]
+						}
+					},
+					"status": "Ok",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"message\": \"success\",\n    \"body\": [\n        {\n            \"pk\": 7,\n            \"question\": \"Lorem epsum dollar sit menau Lorem epsum dollar sit menau Lorem epsum dollar sit menau\",\n            \"created_at\": \"2020-08-25T15:42:34.086031Z\",\n            \"current_status\": \"active\"\n        },\n        {\n            \n            \"pk\": 8,\n            \"question\": \"Lorem epsum dollar sit menau Lorem epsum dollar sit menau Lorem epsum dollar sit menau\",\n            \"created_at\": \"2020-08-25T15:42:34.086031Z\",\n            \"current_status\": \"active\"\n        }\n        \n    ],\n    \"status\": 200\n}"
+				}
+			]
+		},
+		{
+			"name": "getAnswers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Token 0b824a553394ecf5fe340896bc6470190784148d"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "questionID",
+							"value": "7",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/questions/answer/9",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"questions",
+						"answer",
+						"9"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 0b824a553394ecf5fe340896bc6470190784148d",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/api/questions/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"questions",
+								""
+							]
+						}
+					},
+					"status": "Ok",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"message\": \"success\",\n    \"body\": [\n        {\n            \"pk\": 1,\n            \"answer\": \"Lorem epsum dollar sit menau Lorem epsum dollar sit menau Lorem epsum dollar sit menau\",\n            \"created_at\": \"2020-08-25T15:42:34.086031Z\",\n            \"current_status\": \"active\"\n        },\n        {\n            \n            \"pk\": 8,\n            \"answer\": \"Lorem epsum dollar sit menau Lorem epsum dollar sit menau Lorem epsum dollar sit menau\",\n            \"created_at\": \"2020-08-25T15:42:34.086031Z\",\n            \"current_status\": \"active\"\n        }\n        \n    ],\n    \"status\": 200\n}"
+				}
+			]
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/auth/logout",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Login - success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "johndoe@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "abcd@1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/auth/login/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Login successfull.\",\n    \"body\": {\n        \"user\": {\n            \"email\": \"johndoe@gmail.com\",\n            \"username\": \"johndoe\",\n            \"status\": \"Activated\",\n            \"signup_time\": \"2020-08-25T06:37:13.925536Z\"\n        },\n        \"userID\": 11,\n        \"role\": \"Moderater\",\n        \"full_name\": \"Mr. John Doe\",\n        \"gender\": \"MALE\",\n        \"token\": \"3de569c72e411e9e83e005f8e81d3c4b81fea4e3\"\n    },\n    \"status\": 200\n}"
+				},
+				{
+					"name": "Login - failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "doe@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "abcd@1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/auth/login/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"message\": \"You do not have an account please signup to continue.\",\n    \"error\": \"error\",\n    \"status\": 401\n}"
+				}
+			]
+		}
+	],
+	"protocolProfileBehavior": {}
+}
